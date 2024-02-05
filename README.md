@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ```
 
 ## License
-Tearlaments is licensed under the Apache License 2.0 - see the [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.html) file for more details.
+Tearlaments is licensed under the Apache License 2.0 - see the [LICENSE]([https://www.apache.org/licenses/LICENSE-2.0.html](https://github.com/SkyDream01/Tearlaments?tab=Apache-2.0-1-ov-file)) file for more details.
 Feel free to let me know if you have any specific changes or if there's anything else you'd like to add!
 
 ## Disclaimer
