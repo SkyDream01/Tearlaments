@@ -69,10 +69,10 @@ def verify_signature(message, signature_bytes, public_key_bytes):
             ),
             hashes.SHA256()
         )
-        print("Signature is valid.")
+        print("\nSignature is valid.")
         return True
     except Exception as e:
-        print("Signature is invalid:", str(e))
+        print("\nSignature is invalid:", str(e))
         return False
 
 
@@ -106,8 +106,8 @@ def start_private_key():
     if not (private_key_name== None):
         private_key =load_private_key(search_config("private_key_name"))
     else:
-        print("找不到密钥，现在创建密钥")
-        key_name = input("请输入密钥名称：")
+        print("Cannot find the key, now create the key")
+        key_name = input("Please enter the key name:")
         private_key = load_private_key(key_name)
         save_config("private_key_name", key_name)
     return private_key

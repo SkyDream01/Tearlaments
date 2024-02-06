@@ -22,6 +22,7 @@ def decode_massage(binary_ends):
 def overwrite_binary(binary_ends, binary_message, binary_sign):
     message_length = len(binary_message)
     sign_length = len(binary_sign)
+
     binary_message_length = bin(message_length)[2:].zfill(64)
     binary_sign_length = bin(sign_length)[2:].zfill(16)
 

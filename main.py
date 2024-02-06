@@ -26,10 +26,10 @@ def load_img():
         if file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith(".bmp") or file.endswith(".tif"):
             img_list.append(file)
 
-    print("可选的图片：")
+    print("\nOptional pictures:")
     for n, img in enumerate(img_list):
         print(f"{n+1} : {img}")
-    selection = int(input("请选择要加载的图片："))
+    selection = int(input("Please select the image to load:"))
     return img_list[selection-1]
 
 
@@ -39,10 +39,10 @@ def load_public_key_name():
         if file.endswith("public_key.pem"):
             public_key_list.append(file)
 
-    print("可选的公钥：")
+    print("\nOptional public key:")
     for  n, public_key in enumerate(public_key_list):
         print(f"{n+1} : {public_key}")
-    selection = int(input("请选择要加载的公钥："))
+    selection = int(input("Please select the public key to load:"))
     return public_key_list[selection-1]
 
 
@@ -50,7 +50,7 @@ def encode_message2img(private_key, public_key):
     image_name = load_img()
     encrypted_image = ImageProcessor(image_name)
     
-    message = input("请输入要加密的信息：")
+    message = input("\nPlease enter the information you want to encrypt:\n")
     encrypted_message = encrypt_with_public_key(message, public_key)
     sign = sign_message(message, private_key)
 
@@ -58,6 +58,11 @@ def encode_message2img(private_key, public_key):
 
     binary_message = encode_massage(encrypted_message)
     binary_sign = encode_massage(sign)
+
+    if binary_ends.size < len(binary_message) + len(binary_sign) + 16 + 64:
+        print("The image capacity is insufficient. Please select another image")
+        standing_by()
+        os._exit(0)
 
     binary_ends = overwrite_binary(binary_ends, binary_message, binary_sign)
 
@@ -76,29 +81,30 @@ def decode_img2message(private_key, public_key):
     sign = decode_massage(binary_sign)
     decrypted_message = decrypt_with_private_key(encrypted_message, private_key)
     verify_signature(decrypted_message, sign, public_key)
+    print("\nThe encrypted message is:")
     print(decrypted_message)
 
 
 def OptionMenu():
     private_key = start_private_key()
-    print("请选择操作：")
-    print("1.加密图片")
-    print("2.解密图片")
-    option = int(input("请输入选项："))
+    print("\nPlease select an action:")
+    print("1. Encrypt the picture")
+    print("2. Decrypt the picture")
+    option = int(input("Please enter options:"))
     if option == 1:
         public_key_name = load_public_key_name()
         public_key = load_public_key(public_key_name)
         encode_message2img(private_key, public_key)
-        print("图片保存在output文件夹")
+        print("The pictures are saved in the 'output' folder")
     elif option == 2:
         public_key_name = load_public_key_name()
         public_key = load_public_key(public_key_name)
         decode_img2message(private_key, public_key)
     else:
-        print("无效的选项")
+        print("Invalid option")
 
 def standing_by():
-    input("按下任意键结束程序...")
+    input("\nPress any key to continue...")
 
 def main():
     start_folder_check()
